@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <script src="jquery-2.0.3.js"></script>
+ <style>
+	    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    ul {
+        font-size: 0px;
+        padding: 0px;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .wrap {
+        width: 590px;
+        height: 470px;
+        position: relative;
+        left: 300px;
+        top: 100px;
+        overflow: hidden;
+    }
+
+    .wrap ul {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wrap ul li {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wrap ul li img {
+        opacity: 0;
+        /*透明度设置*/
+        transition: 1s;
+        /*设置延迟效果*/
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    .wrap ul li .on {
+        opacity: 1;
+    }
+
+    .wrap .btn .left,
+    .wrap .btn .right {
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        font-size: 30px;
+        line-height: 50px;
+        text-align: center;
+        color: #fffff0;
+    }
+
+    .wrap .btn .left {
+        left: 0px;
+    }
+
+    .wrap .btn .right {
+        right: 0px;
+    }
+
+    .wrap .wrap-bot {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wrap .wrap-bot ul {
+        position: absolute;
+        top: 85%;
+        left: 33%;
+    }
+
+    .wrap .wrap-bot ul .circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 2px solid white;
+        float: left;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .wrap .wrap-bot ul .color {
+        background-color: orange;
+    }
+ </style>
+ <body>
+      <div class="wrap">
+        <ul class="wrap-image">
+            <li><img src="0.jpg" class="on"></li>
+            <li><img src="1.jpg"></li>
+            <li><img src="2.jpg"></li>
+            <li><img src="3.jpg"></li>
+            <li><img src="4.jpg"></li>
+            <li><img src="5.jpg"></li>
+            <li><img src="6.jpg"></li>
+            <li><img src="7.jpg"></li>
+        </ul>
+        <div class="btn">
+            <div class="left">
+                < </div>
+                    <div class="right"> > </div>
+            </div>
+            <div class="wrap-bot">
+                <ul>
+                    <li class="circle color"></li>
+                    <li class="circle"></li>
+                    <li class="circle"></li>
+                    <li class="circle"></li>
+                    <li class="circle"></li>
+                    <li class="circle"></li>
+                    <li class="circle"></li>
+                    <li class="circle"></li>
+                </ul>
+            </div>
+        </div>
+ </body>
+ <script>
+	$(function() {		//load;
+		var oLeft = $(".left"),
+			oRight = $(".right"),
+			oWrap = $(".wrap"),
+			aImage = $(".wrap .wrap-image li img"),
+			oCircle = $(".wrap .wrap-bot ul li");
+        var num = 0,
+			lastNum = 0,
+			len = aImage.length,
+			timer;          //失焦时的自动翻页效果;
+		function change(callback) {
+            aImage[lastNum].classList.remove('on');
+            oCircle[lastNum].classList.remove('color');
+            callback();
+            lastNum = num;
+            aImage[num].classList.add('on');
+            oCircle[num].classList.add('color');
+        }
+		oWrap.on("contextmenu", function(e) {	//取消右键菜单效果;
+			return false;	
+		});
+		oLeft.on("click", {"callback": change}, function(e) {
+			e.data["callback"](function() {
+				num --;
+				if(num < 0) {
+					num = len - 1;
+				}
+			});
+		});  
+		oRight.on("click", {"callback": change}, function(e) {		 //右边点击向下翻页效果;
+			e.data["callback"](function(){
+                num ++;
+                num %= len;
+            })
+		});
+		/*$(".wrap .wrap-bot ul").delegate(this, "mouseover", function(e) {
+			var a = $(e.target).index();
+			change(function() {
+				num = a;	
+			});
+		});*/
+		for (var i = 0; i < len; i++) {     //下方小标的鼠标移动特效;
+            (function (j) {             //闭包问题;
+                oCircle[j].onmouseover = function () {
+                    change(function () {
+                        num = j;
+                    });
+                }
+            })(i);
+        }
+		function auto() {   //自动轮播;
+            timer = setInterval(nextPic, 3000);
+        }
+        auto();
+		function nextPic() {
+			change(function(){
+                num ++;
+                num %= len;
+            })
+		}
+		oWrap.on("mouseover", function() {
+			clearInterval(timer);	
+		}).on("mouseout", function() {
+			auto();	
+		});
+	})
+ </script>
+</html>

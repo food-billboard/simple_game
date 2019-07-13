@@ -1,0 +1,401 @@
+var draw = {
+	pipe: function(context, x, y, type) {	//Ë®Äà¹Ü
+		//Í·
+		context.fillStyle = "#00ad00";
+		context.moveTo(x, y); //(0, 0)
+		context.rect(x, y, 65.5, 22.5);
+		context.fill();
+		context.stroke();
+		//½Ó¿Ú
+		context.beginPath();
+		context.fillStyle = "#030004";
+		context.rect(x += 2, y += 22.5, 61, 2);//(2, 22.5)
+		context.fill();
+		//µ×
+		context.beginPath();
+		context.fillStyle = "#89cf14";
+		var height = 41.5
+		if(type == 1) {
+			height = 105.5;
+		}
+		context.rect(x, y += 2, 61, height); //(2, 24.5)
+		context.fill();
+		context.stroke();
+	},
+	flower: function(context, x, y) {	//»¨;
+		//Ò¶±ú
+		context.beginPath();
+		context.strokeStyle = "black";
+		context.fillStyle = "#00a409";
+		context.moveTo(x += 8.5, y += 18.5);	//(8.5, 18.5)
+		context.lineTo(x += 5, y += 14.5);	//(13.5, 33)
+		context.lineTo(x += 5, y);	//(18.5, 33)
+		context.lineTo(x += 4, y -= 14.5);	//(22.5, 18.5)
+		context.lineTo(x -= 2, y);	//(20.5, 18.5)
+		context.lineTo(x -= 3, y += 11.5); //(17.5, 30)
+		context.lineTo(x, y -= 13.5); //(17.5, 16.5)
+		context.lineTo(x -= 2, y); //(15.5, 16.5)
+		context.lineTo(x, y += 13.5); //(15.5, 30)
+		context.lineTo(x -= 5, y -= 11.5); //(10.5, 18.5)
+		context.lineTo(x -= 2, y);
+		context.stroke();
+		context.fill();
+		//°×»¨
+		context.beginPath();
+		context.fillStyle = "#fcffff";
+		drawCircle(context, x += 8, y -= 9.5, 12.5, 6); //(16.5, 7)
+		context.fill();
+		//»Æ»¨
+		context.beginPath();
+		context.fillStyle = "#fc993c";
+		drawCircle(context, x, y, 7, 3.5); //(16.5, 7)
+		context.fill();
+		//ÂÌ»¨
+		context.beginPath();
+		context.fillStyle = "#00a409";
+		drawCircle(context, x, y, 2, 1); //(16.5, 7)
+		context.fill();
+	},
+	bomb: function(context, x, y) {	//×Óµ¯;
+		context.fillStyle = "#e32902";
+		//¿ò
+		context.moveTo(x, y += 6); //(0, 6)
+		context.lineTo(x, y += 2); //(0, 8)
+		context.quadraticCurveTo(3, 12, x += 7, y += 9); //(7, 17)
+		context.lineTo(x += 2, y); //(9, 17)
+		context.quadraticCurveTo(x + 3, y - 4, x += 8, y -= 10); //(17,7)
+		context.quadraticCurveTo(x - 7, y + 8, x -= 8.5, y -= 2); //(8.5, 5)
+		context.lineTo(x, y -= 2); //(8.5, 3)
+		context.quadraticCurveTo(x - 4, y - 3, x -= 8.5, y += 3); //(0, 6)
+		context.fill();
+		context.stroke();
+		//»ðÐÇ
+		context.beginPath();
+		context.fillStyle = "#bb3c05";
+		context.translate(x += 7, y += 3.5);
+		context.rotate(10);
+		drawCircle(context, x - 7, y - 9.5, 6, 3);	//(7, 9.5);
+		context.rotate(-10);
+		context.translate(- x, - y);
+		context.fill();
+		//°×ÐÇ
+		context.beginPath();
+		context.fillStyle = "#fff7ca";
+		context.rect(x -= 1, y -= 1, 1, 1); //(6, 6)
+		context.fill();
+	}, 
+	mushroom: function(context, x, y) {	//Ä¢¹½;
+		context.beginPath();
+		context.fillStyle = "#ff9b3e";
+		//Í·
+		context.moveTo(x, y += 16.5); //(0, 16.5)
+		context.lineTo(x, y += 1); //(0, 17.5)
+		context.lineTo(x += 33, y); //(33, 17.5)
+		context.lineTo(x, y -= 1); //(33, 16.5)
+		context.lineTo(x-= 15, y -= 16.5);
+		context.lineTo(x -= 3, y); //(15, 0)
+		context.lineTo(x -= 15, y += 16.5);
+		context.fill();
+		context.stroke();
+		//°ß
+		context.fillStyle = "#de2e00";
+		context.arc(x += 7, y, 3, Math.PI * 2, false); //(7, 16.5)
+		context.arc(x += 10, y -= 13.5, 2, Math.PI * 2, false); //(17, 3)
+		context.rotate(30);
+		context.rect(x += 10, y += 13.5, 3, 2); //(27, 16.5)
+		context.rotate(-30);
+		context.fill();
+		//¸ù
+		context.beginPath();
+		context.fillStyle = "#e32902";
+		context.moveTo(x -= 17, y += 1); //(10, 17.5)
+		context.lineTo(x, y += 15.5); //(10, 33)
+		context.lineTo(x += 13, y); //(23, 33)
+		context.lineTo(x, y -= 15.5); //(23, 17.5)
+		context.lineTo(x -= 13, y);
+		context.fill();
+		context.stroke();
+	}, 
+	monsterMush: function(context, x, y) {	//Ä¢¹½¹ÖÎï;
+		//Í·	
+		context.fillStyle = "#cb5913";
+		context.moveTo(x += 14, y); //(14, 0)
+		context.lineTo(x += 5, y); //(19, 0)
+		context.lineTo(x += 14, y += 19); //(33, 19)
+		context.lineTo(x, y += 1); //(33, 20)
+		context.lineTo(x -= 33, y); //(0, 20)
+		context.lineTo(x, y -= 1); //(0, 19)
+		context.lineTo(x += 14, y -= 19); //(14, 0)
+		context.stroke();
+		context.fill();
+		//ÑÛ°×
+		context.beginPath();
+		context.fillStyle = "#ffbd9e";
+		context.moveTo(x -= 4, y += 11); //(10, 11)
+		context.lineTo(x, y += 7); //(10, 18)
+		context.lineTo(x += 6, y); //(16, 18)
+		context.lineTo(x, y -= 4); //(16, 14)
+		context.lineTo(x -= 4, y -= 3); //(12, 11)
+		context.lineTo(x -= 2, y); //(10, 11)
+		context.moveTo(x += 13, y += 3); //(23, 14)
+		context.lineTo(x += 4, y -= 3); //(27, 11)
+		context.lineTo(x += 2, y += 5); //(29, 16)
+		context.lineTo(x, y += 2); //(29, 18)
+		context.lineTo(x -= 6, y); //(23, 18)
+		context.lineTo(x, y -= 4); //(23, 14)
+		context.stroke();
+		context.fill();
+		//Ã¼Ã«
+		context.beginPath();
+		context.fillStyle = "#380000";
+		context.rect(x -= 15, y -= 5, 4, 2); //(8, 9)
+		context.rect(x += 19, y, 4, 2); //(27, 9)
+		context.fill();
+		context.stroke();
+		//ÑÛ¾¦
+		context.beginPath();
+		context.fillStyle = "#150000";
+		context.rect(x -= 15, y += 1, 2, 6); //(12, 10)
+		context.rect(x += 13, y, 2, 6); //(25, 10)
+		context.fill();
+		context.stroke();
+		//±Ç×Ó
+		context.beginPath();
+		context.fillStyle = "#320000";
+		context.rect(x -= 11, y += 10, 8, 2); //(14, 20)
+		context.fill();
+		context.stroke();
+		//½Å
+		context.beginPath();
+		context.fillStyle = "#000002";
+		context.moveTo(x -= 10, y += 13); //(4, 33)
+		context.lineTo(x += 10.5, y); //(14.5, 33)
+		context.lineTo(x, y -= 7); //(14.5, 26)
+		context.quadraticCurveTo(x - 7, y + 3, x -= 10.5, y += 7); //(4, 33)
+		context.moveTo(x += 16.5, y -= 7); //(20.5, 26)
+		context.quadraticCurveTo(x + 7, y + 3, x += 10.5, y += 7); //(31, 33)
+		context.lineTo(x -= 10.5, y); //(20.5, 33)
+		context.lineTo(x, y -= 7); //(20.5, 26)
+		context.stroke();
+		context.fill();
+		//×ì
+		context.beginPath();
+		context.fillStyle = "#ffc1c1";
+		context.moveTo(x -= 7.5, y -= 6); //(13, 20)
+		context.lineTo(x += 14, y); //(27, 20)
+		context.quadraticCurveTo(x + 5, y + 5, x -= 10.5, y += 10); //(16.5, 30)
+		context.quadraticCurveTo(x - 5, y - 5, x -= 3.5, y -= 10); //(13, 20)
+		context.fill();
+		context.stroke();
+	},
+	tortoise: function(context, x, y) {		//ÎÚ¹ê;
+		//Í·
+		context.fillStyle = "#fe9a44";
+		context.moveTo(x , y += 19); //(0, 19)
+		context.lineTo(x, y += 2); //(0, 21)
+		context.quadraticCurveTo(x + 5, y - 5, x += 8, y -= 4); //(8, 17)
+		context.quadraticCurveTo(x + 5, y + 5, x -= 5, y += 7); //(3, 24)
+		context.lineTo(x += 5, y += 4); //(8, 28)
+		context.lineTo(x += 6, y -= 9); //(14, 19)
+		context.lineTo(x, y -= 12); //(14, 7)
+		context.lineTo(x -= 6, y -= 3); //(8, 4)
+		context.lineTo(x -= 8, y += 15); //(0, 19)
+		context.stroke();
+		context.fill();
+		//±Ç×Ó
+		context.beginPath();
+		context.fillStyle = "#726f12";
+		context.rect(x += 2, y -= 4, 2, 2); //(2, 15)
+		context.fill();
+		context.stroke();
+		//ÑÛ°×
+		context.beginPath();
+		context.fillStyle = "#fff8f8";
+		drawCircle(context, x += 5, y -= 10, 3, 10); //(7, 5)
+		context.fill();
+		context.stroke();
+		//ÑÛ¾¦
+		context.beginPath();
+		context.fillStyle = "#2f8d1d";
+		context.rect(x -= 2.5, y -= 2, 2, 6); //(4.5, 3)
+		context.stroke();
+		context.fill();
+		//¹ê¿Ç
+		context.beginPath();
+		context.fillStyle = "#00b200";
+		context.moveTo(x += 9.5, y += 14); //(14, 17)
+		context.lineTo(x += 10, y); //(24, 17)
+		context.quadraticCurveTo(x + 5, y + 9, x += 4, y += 18); //(28, 35)
+		context.lineTo(x -= 18, y); //(10, 35)
+		context.quadraticCurveTo(x - 5, y - 9, x += 4, y -= 18); //(14, 17)
+		context.stroke();
+		context.fill();
+		//°ßµã
+		context.beginPath();
+		context.fillStyle = "#9ece47";
+		context.strokeStyle = "#9ece47";
+		context.lineWidth = 2;
+		context.moveTo(x -= 6, y += 11); //(8, 28)
+		context.lineTo(x += 11, y += 8); //(19, 36)
+		context.moveTo(x -= 5, y -= 19); //(14, 17)
+		context.lineTo(x += 14, y += 18); //(28, 35)
+		context.moveTo(x -= 18, y); //(10, 35)
+		context.lineTo(x += 9, y -= 18); //(19 17)
+		context.moveTo(x += 5, y); //(24, 17)
+		context.lineTo(x -= 7, y += 19); //(17, 36)
+		context.stroke();
+		//½Å
+		context.beginPath();
+		context.lineWidth = 1;
+		context.strokeStyle = "#000";
+		context.fillStle = "#ff9c37";
+		context.translate(x -= 7, y -= 1);
+		context.rotate(20);
+		drawCircle(context, 0, 0, 6, 3); //(10, 37)
+		context.rotate(-20);
+		context.translate(- x, - y);
+		context.translate(x += 14, y += 4);
+		context.rotate(-20);
+		drawCircle(context, 0, 0, 3, 6); //(24, 41) 
+		context.rotate(20);
+		context.translate(- x, - y);
+		context.fill();
+		context.stroke();	
+	},
+	child: function(context, x, y) {	//Ð¡ÈË'
+		//Í·
+		context.fillStyle = "#ff9b44";
+		context.moveTo(x += 12, y += 11); //(12, 11)
+		context.lineTo(x += 22, y); //(34, 11)
+		context.lineTo(x, y += 1); //(34, 12)
+		context.lineTo(x += 9, y += 5); //(43, 17)
+		context.lineTo(x -= 6, y += 7); //(37, 24)
+		context.lineTo(x -= 24, y); //(13, 24)
+		context.lineTo(x -= 2, y -= 12); //(11, 12)
+		context.lineTo(x += 1, y -= 1); //(12, 11)
+		context.fill();
+		context.stroke();
+		//Ã±×Ó
+		context.beginPath();
+		context.fillStyle = "#da2802";
+		context.moveTo(x -= 2, y -= 1); //(10, 10)
+		context.lineTo(x, y += 1); //(10, 11)
+		context.lineTo(x += 28, y); //(38, 11)
+		context.lineTo(x, y -= 1); //(38, 10)
+		context.lineTo(x -= 5, y); //(33, 10)
+		context.lineTo(x -= 5, y -= 7); //(28, 3)
+		context.lineTo(x -= 8, y); //(20, 3)
+		context.lineTo(x -= 10, y += 7); //(10, 10)
+		context.stroke();
+		context.fill();
+		//Í··¢
+		context.beginPath();
+		context.fillStyle = "#837604";
+		context.moveTo(x += 2, y += 1); //(12, 11)
+		context.lineTo(x += 3, y); //(15, 11)
+		context.lineTo(x, y += 2); //(15, 13)
+		context.quadraticCurveTo(x - 5, y + 2, x, y += 4); //(15, 17)
+		context.quadraticCurveTo(x - 5, y - 2, x -= 3, y -= 6); //(12, 11)
+		context.fill();
+		context.stroke();
+		//¶ú¶ä
+		context.beginPath();
+		context.fillStyle = "#e0a73e";
+		context.moveTo(x -= 1, y += 1); //(11, 12)
+		context.lineTo(x += 1, y += 5); //(12, 17)
+		context.quadraticCurveTo(x - 5, y - 3, x -= 1, y -= 5); //(11, 12)
+		context.fill();
+		context.stroke();
+		//ºú×Ó
+		context.beginPath();
+		context.fillStyle = "#867106";
+		context.moveTo(x += 22, y += 5); //(33, 17)
+		context.quadraticCurveTo(x - 5, y + 3, x += 7, y += 2); //(40, 19)
+		context.lineTo(x -= 2, y += 2); //(38, 21)
+		context.lineTo(x -= 7, y); //(31, 21)
+		context.quadraticCurveTo(x + 5, y - 2, x += 2, y -= 4); //(33, 17)
+		context.fill();
+		context.stroke();
+		//ÑÛ¾¦
+		context.beginPath();
+		context.fillStyle = "#000";
+		drawCircle(context, x -= 1, y -= 3, 1, 3); //(32, 14)
+		context.fill();
+		//ÉíÌå
+		context.beginPath();
+		context.fillStyle = "#857400";
+		context.moveTo(x -= 19, y += 10); //(13, 24)
+		context.lineTo(x += 19, y); //(32, 24)
+		context.lineTo(x, y += 1); //(32, 25)
+		context.lineTo(x += 6, y); //(38, 25)
+		context.lineTo(x += 4, y += 4); //(42, 29)
+		context.lineTo(x -= 7, y += 4); //(35, 33)
+		context.lineTo(x -= 2, y += 4); //(33, 37)
+		context.lineTo(x -= 4, y); //(29, 37)
+		context.lineTo(x -= 5, y -= 3); //(24, 34)
+		context.lineTo(x -= 2, y); //(22, 34)
+		context.lineTo(x -= 5, y += 3); //(17, 37)
+		context.lineTo(x -= 4, y); //(13, 37)
+		context.lineTo(x += 2, y -= 4); //(15, 33)
+		context.lineTo(x -= 7, y -= 4); //(8, 29)
+		context.lineTo(x += 5, y -= 5); //(13, 24)
+		context.fill();
+		context.stroke();
+		//½Å
+		context.beginPath();
+		context.fillStyle = "#837604";
+		context.moveTo(x, y += 13); //(13, 37)
+		context.lineTo(x += 4, y); //(17, 37)
+		context.lineTo(x += 1, y += 4); //(18, 41)
+		context.lineTo(x -= 11, y); //(7, 41)
+		context.lineTo(x += 6, y -= 4); //(13, 37)
+		context.moveTo(x += 16, y); //(29, 37)
+		context.lineTo(x += 4, y); //(33, 37)
+		context.lineTo(x += 8, y += 4); //(41, 41)
+		context.lineTo(x -= 14, y); //(28, 41)
+		context.lineTo(x += 1, y -= 4); //(29, 37)
+		context.fill();
+		context.stroke();
+		//±³ÐÄ
+		context.beginPath();
+		context.fillStyle = "#dc2b02";
+		context.moveTo(x -= 14, y -= 13); //(15, 24)
+		context.lineTo(x += 2, y); //(17, 24)
+		context.lineTo(x, y += 4); //(17, 28)
+		context.quadraticCurveTo(x + 10, y + 5, x += 15, y -= 3); //(32, 25)
+		context.lineTo(x += 2, y); //(34, 25)
+		context.lineTo(x -= 2, y += 4); //(32, 29)
+		context.quadraticCurveTo(x + 5, y + 6, x += 1, y += 8); //(33, 37)
+		context.lineTo(x -= 4, y); //(29, 37)
+		context.lineTo(x -= 5, y -= 3); //(24, 34)
+		context.lineTo(x -= 2, y); //(22, 34)
+		context.lineTo(x -= 5, y += 3); //(17, 37)
+		context.lineTo(x -= 4, y); //(13, 37)
+		context.lineTo(x, y -= 4); //(13, 33)
+		context.lineTo(x += 2, y -= 4); //(15, 29)
+		context.lineTo(x, y -= 5); //(15, 24)
+		context.stroke();
+		context.fill();
+		//Å¦¿Û
+		context.beginPath();
+		context.fillStyle = "#ff8a4c";
+		context.arc(x += 1, y += 8, 1, Math.PI * 2, false); //(16, 32)
+		context.arc(x += 14, y, 1, Math.PI * 2, false); //(30, 32)
+		context.stroke();
+		context.fill();
+		//ÊÖ
+		context.beginPath();
+		context.fillStyle = "#fd9d39";
+		context.moveTo(x -= 22, y -= 3); //(8, 29)
+		context.lineTo(x += 7, y += 4); //(15, 33)
+		context.lineTo(x -= 8, y += 3); //(7, 36)
+		context.lineTo(x += 1, y -= 7); //(8, 29)
+		context.moveTo(x += 27, y += 4); //(35, 33)
+		context.lineTo(x += 7, y -= 4); //(42, 29)
+		context.lineTo(x += 1, y += 7); //(43, 36)
+		context.lineTo(x -= 7, y -= 3); //(35, 33)
+		context.fill();
+		context.stroke();
+	}
+	
+}

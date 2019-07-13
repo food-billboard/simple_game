@@ -1,0 +1,14 @@
+游戏点击按钮开始游戏 startGame()//
+游戏倒计时定时器 timeout()//
+钩子左右摇摆 swing()//
+随机出现矿藏 createPrecious()
+页面按键响应 click()//
+		钩子变长 extend()//
+		碰撞检测 impact()//
+			物体检测 objectCheck()//
+			边界检测 borderCheck()//
+		扔炸弹 bomb()//
+			物体消失 clear()//
+		钩子还原 restore()//
+			数据改变 dataChange()//
+			钩子摇摆 swing()//
